@@ -166,3 +166,8 @@ semester_1/lab1_introduction/hello_world func/hello_world
 semester_1/lab1_introduction/hello_world func/hello_world.dSYM/Contents/Info.plist
 semester_1/lab1_introduction/hello_world func/hello_world.dSYM/Contents/Resources/DWARF/hello_world
 semester_1/lab1_introduction/hello_world func/hello_world.dSYM/Contents/Resources/Relocations/aarch64/hello_world.yml
+semester_1/lab1_introduction/tasks/hello_world.dSYM/Contents/Resources/Relocations/aarch64/hello_world.yml
+semester_1/lab1_introduction/tasks/hello_world.dSYM/Contents/Info.plist
+.gitignore
+semester_1/lab1_introduction/tasks/hello_world.dSYM/Contents/Resources/DWARF/hello_world
+semester_1/lab1_introduction/tasks/hello_world
