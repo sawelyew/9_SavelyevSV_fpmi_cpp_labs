@@ -15,4 +15,5 @@ int main() {
         }
     }
     std::cout << sum << " " << multipl << std::endl;
+    return 0;
 }
