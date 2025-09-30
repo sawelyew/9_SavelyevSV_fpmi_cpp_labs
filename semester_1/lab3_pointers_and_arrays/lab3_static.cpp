@@ -7,7 +7,7 @@ const int MAX_SIZE = 100; // Максимальный размер статич�
 // Заполнение с клавиатуры
 void FillFromKeyboard(double arr[], int n) {
     for (int i = 0; i < n; i++) {
-        std::cout << "Введите элемент:" << i;
+        std::cout << "Введите " << i << " элемент: ";
         std::cin >> arr[i];
     }
 }
@@ -24,7 +24,6 @@ void FillRandom(double arr[], int n, double a, double b) {
         double random01 = rand() / (double)RAND_MAX;
         // Масштабируем в интервал [a, b]
         arr[i] = a + random01 * (b - a);
-
     }
 }
 
