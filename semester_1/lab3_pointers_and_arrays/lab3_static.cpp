@@ -18,7 +18,7 @@ void FillRandom(double arr[], int n, double a, double b) {
     // for (int i = 0; i < n; i++) {
     //     double RandomNum = rand() % (b - a + 1) + a;
     //     arr[i] = RandomNum;
-    
+
     for (int i = 0; i < n; i++) {
         // Генерируем случайное число от 0 до 1
         double random01 = rand() / (double)RAND_MAX;
@@ -117,7 +117,7 @@ int main() {
     int idxMinDiff = FindMinDiffIndex(arr, n);
     std::cout << "Номер элемента с минимальной разницей между суммами слева и справа: " << idxMinDiff << std::endl;
 
-    // FindMaxAbsElement(arr, n);
+    FindMaxAbsIndex(arr, n); // Выводит строчку ниже при выполнении самой функции
     // std::cout << "Максимальный по модулю элемент: " << maxAbsVal << ", его индекс: " << maxAbsIdx << std::endl;
 
     std::cout << "Введите границы интервала для удаления элементов [a, b]: ";
