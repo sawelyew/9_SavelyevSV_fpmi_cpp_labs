@@ -4,22 +4,29 @@
 
 const int MAX_SIZE = 100; // Максимальный размер статического массива
 
+void PrintArray(double arr[]){
+    int size = (sizeof(arr)/sizeof(double));
+    for (int i=0; i<size; ++i)
+        std::cout << arr[i] << std::endl;
+}
+
+
 // Заполнение с клавиатуры
-void FillFromKeyboard(double arr[], int n) {
-    for (int i = 0; i < n; i++) {
-        std::cout << "Введите " << i << " элемент: ";
+void FillFromKeyboard(double* arr, int n) {
+    for (int i = 0; i < n; ++i) {
+        std::cout << "Введите " << i+1 << " элемент: ";
         std::cin >> arr[i];
     }
 }
 
 // Заполнение случайными числами из интервала [a,b]
-void FillRandom(double arr[], int n, double a, double b) {
+void FillRandom(double* arr, int n, double a, double b) {
     
     // for (int i = 0; i < n; i++) {
     //     double RandomNum = rand() % (b - a + 1) + a;
     //     arr[i] = RandomNum;
 
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; ++i) {
         // Генерируем случайное число от 0 до 1
         double random01 = rand() / (double)RAND_MAX;
         // Масштабируем в интервал [a, b]
@@ -30,13 +37,13 @@ void FillRandom(double arr[], int n, double a, double b) {
 // Нахождение индекса с минимальной разницей сумм слева и справа
 int FindMinDiffIndex(double arr[], int n) {
     double totalSum = 0;
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < n; ++i)
         totalSum += arr[i];
     double leftSum = 0;
     int minIndex = 0;
     double minDiff = totalSum;
 
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; ++i) {
         double rightSum = totalSum - leftSum - arr[i];
         double diff = abs(leftSum - rightSum);
         if (diff < minDiff) {
@@ -54,7 +61,7 @@ int FindMaxAbsIndex(double arr[], int n) {
     int maxIdx = 0;
     double maxAbsVal = abs(arr[0]);
 
-    for (int i = 1; i < n; i++) {
+    for (int i = 1; i < n; ++i) {
         double currentAbs = abs(arr[i]);
         if (currentAbs > maxAbsVal) {
             maxAbsVal = currentAbs;
@@ -68,24 +75,28 @@ int FindMaxAbsIndex(double arr[], int n) {
 
 
 // Сжатие массива с удалением элементов из интервала [a,b]
-void CompressArray(double arr[], int n, double a, double b) {
+void CompressArray(double* arr, int n, double a, double b) {
     int writeIdx = 0;
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; ++i) {
         if (!(arr[i] >= a && arr[i] <= b)) {
             arr[writeIdx++] = arr[i];
         }
     }
-    for (int i = writeIdx; i < n; i++) {
+    for (int i = writeIdx; i < n; ++i) {
         arr[i] = 0.0;
     }
 }
 
 int main() {
     int n;
-    std::cout << "Введите количество элементов (максимально " << MAX_SIZE << "): ";
-    std::cin >> n;
-    if (n < 1 || n > MAX_SIZE) {
-        std::cout << "Количество элементов вне допустимого диапазона." << std::endl;
+    std::cout << "Введите количество элементов массива: ";
+    if (!(std::cin >> n)){
+        std::cout << "Неправильный ввод." << std::endl;
+        return 1;
+    };
+
+    if (n <= 0) {
+        std::cout << "Размер должен быть положительным!\n";
         return 1;
     }
 
@@ -105,11 +116,11 @@ int main() {
         std::cin >> a >> b;
         FillRandom(arr, n, a, b);
         std::cout << "Сгенерированный массив: ";
-        for (int i = 0; i < n; i++) 
+        for (int i = 0; i < n; ++i) 
             std::cout << arr[i] << " "<< std::endl;
-    } 
+    }
     else {
-        std::cout << "Неверный выбор!" << std::endl;
+        std::cout << "Неверный выбор." << std::endl;
         return 1;
     }
 
@@ -123,10 +134,9 @@ int main() {
     std::cin >> a >> b;
 
     CompressArray(arr, n, a, b);
-    std::cout << "Сжатый массив: ";
-    for (int i = 0; i < n; i++) {
-        std::cout << arr[i] << " ";
-    }
+    std::cout << "Сжатый массив:" << std::endl;
+    PrintArray(arr);
+    
 
    return 0;
 }
