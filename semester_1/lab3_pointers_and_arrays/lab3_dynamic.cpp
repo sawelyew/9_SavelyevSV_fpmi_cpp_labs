@@ -1,17 +1,10 @@
 #include <iostream>
 #include <cstdlib>
 
-void PrintArray(double arr[]){
-    int size = (sizeof(arr)/sizeof(double));
-    for (int i=0; i<size; ++i)
-        std::cout << arr[i] << std::endl;
-}
-
-
 
 // Заполнение с клавиатуры
 void FillFromKeyboard(double* arr, int n) {
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; i++) {
         std::cout << "Введите " << i << " элемент: ";
         std::cin >> arr[i];
     }
@@ -24,7 +17,7 @@ void FillRandom(double* arr, int n, double a, double b) {
     //     double RandomNum = rand() % (b - a + 1) + a;
     //     arr[i] = RandomNum;
 
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; i++) {
         // Генерируем случайное число от 0 до 1
         double random01 = rand() / (double)RAND_MAX;
         // Масштабируем в интервал [a, b]
@@ -34,15 +27,15 @@ void FillRandom(double* arr, int n, double a, double b) {
 }
 
 // 1 задача
-bool FindElementWMinFreq(double arr[], int n, double foundValue, int foundFrequency) {
-    for (int freqCount = 1; freqCount <= n; ++freqCount) {
+bool FindElementWMinFreq(double* arr, int n, double &foundValue, int &foundFrequency) {
+    for (int freqCount = 1; freqCount <= n; freqCount++) {
         double maxVal = -1e308;
         bool found = false;
 
-        for (int i = 0; i < n; ++i) {
-            // Счет сколько раз встречается arr[i]
-            int count = 0; 
-            for (int j = 0; j < n; ++j) {
+        for (int i = 0; i < n; i++) {
+            // Считаем, сколько раз встречается arr[i]
+            int count = 0;
+            for (int j = 0; j < n; j++) {
                 if (arr[i] == arr[j]) {
                     count++;
                 }
@@ -67,9 +60,9 @@ bool FindElementWMinFreq(double arr[], int n, double foundValue, int foundFreque
 
 
 // 2 задача
-double SumBetweenFirstLastZero(double arr[], int n) {
+double SumBetweenFirstLastZero(double* arr, int n) {
     int firstZero = -1, lastZero = -1;
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; i++) {
         if (arr[i] == 0.0) { 
             if (firstZero == -1) firstZero = i;
             lastZero = i;
@@ -78,7 +71,7 @@ double SumBetweenFirstLastZero(double arr[], int n) {
     if (firstZero == -1 || firstZero == lastZero) 
         return 0.0;
     double sum = 0.0;
-    for (int i = firstZero + 1; i < lastZero; ++i) {
+    for (int i = firstZero + 1; i < lastZero; i++) {
         sum += arr[i];
     }
     return sum;
@@ -87,7 +80,7 @@ double SumBetweenFirstLastZero(double arr[], int n) {
 // 3
 void RearrangeArray(double* arr, int n) {
     int insertPos = 0;
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; i++) {
         if (arr[i] >= 0) {
             if (i != insertPos) {
                 double temp = arr[i];
@@ -104,10 +97,7 @@ void RearrangeArray(double* arr, int n) {
 int main() {
     int n;
     std::cout << "Введите количество элементов массива: ";
-    if (!(std::cin >> n)){
-        std::cout << "Неправильный ввод." << std::endl;
-        return 1;
-    };
+    std::cin >> n;
 
     if (n <= 0) {
         std::cout << "Размер должен быть положительным!\n";
@@ -115,7 +105,7 @@ int main() {
     }
 
     double* arr = new double[n];
-    
+
     int choice;
     std::cout << "Выберите способ заполнения массива:\n1 - с клавиатуры\n2 - случайными числами\nВаш выбор: ";
     std::cin >> choice;
