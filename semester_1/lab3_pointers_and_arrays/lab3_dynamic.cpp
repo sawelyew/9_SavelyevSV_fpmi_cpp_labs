@@ -94,7 +94,10 @@ void RearrangeArray(int* arr, int n) {
 int main() {
     int n;
     std::cout << "Введите количество элементов массива: ";
-    std::cin >> n;
+    if (!(std::cin >> n)) {
+        std::cout << "Некорректное число элементов." << std::endl;
+        return 1;
+    }
 
     if (n <= 0) {
         std::cout << "Размер должен быть положительным!\n";
@@ -109,14 +112,16 @@ int main() {
 
     int a, b;
     if (choice == 1) {
-        FillFromKeyboard(arr, n);
+        FillFromKeyboard(arr, n); // ТАКЖЕ СПРОСИТЬ КАК И СО СТАТИКОМ ПРО НЕКОРРЕКТНЫЙ ВВОД
     } else if (choice == 2) {
         std::cout << "Введите границы интервала [a, b]: ";
-        std::cin >> a >> b;
+        if (!(std::cin >> a && std::cin >> b)) {
+            std::cout << "Неверный ввод" << std::endl;
+            return 1;
+        }
         FillRandom(arr, n, a, b);
         std::cout << "Сгенерированный массив: ";
-        for (int i = 0; i < n; i++) std::cout << arr[i] << " ";
-        std::cout << std::endl;
+        PrintArray(arr, n);
     } else {
         std::cout << "Некорректный выбор\n";
         delete[] arr;

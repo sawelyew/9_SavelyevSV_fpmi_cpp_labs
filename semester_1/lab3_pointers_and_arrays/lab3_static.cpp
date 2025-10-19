@@ -11,11 +11,15 @@ void PrintArray(int* arr, int n) {
     }
 }
 
-void FillFromKeyboard(int* arr, int n) {
+int FillFromKeyboard(int* arr, int n) {
     for (int i = 0; i < n; i++) {
-        std::cout << "Введите " << i << " элемент: ";
-        std::cin >> arr[i];
+        std::cout << "Введите " << i+1 << " элемент: ";
+        if (!(std::cin >> arr[i])) {
+            std::cout << "Неверный ввод" << std::endl;
+            return 1;
+        }
     }
+    return 0;
 }
 
 void FillRandom(int* arr, int n, int a, int b) {
@@ -95,15 +99,17 @@ int main() {
     int a, b;
 
     if (choice == 1) {
-        FillFromKeyboard(arr, n);
+        FillFromKeyboard(arr, n); // !!! СПРОСИТЬ КАК ВЫЙТИ ИЗ ПРОГРАММЫ В СЛУЧАЕ НЕПРАВИЛЬНОГО ВВОДА
     } 
     else if (choice == 2) {
-        std::cout << "Введите границы интервала для случайных чисел [a, b]: ";
-        std::cin >> a >> b;
+        std::cout << "Введите границы интервала для случайных чисел [a, b]: " << std::endl;
+        if (!(std::cin >> a && std::cin >> b)) {
+                std::cout << "Неправильный ввод" << std::endl;
+                return 1;
+    }
         FillRandom(arr, n, a, b);
         std::cout << "Сгенерированный массив: ";
-        for (int i = 0; i < n; i++) 
-            std::cout << arr[i] << " "<< std::endl;
+        PrintArray(arr, n);
     } 
     else {
         std::cout << "Неверный выбор!" << std::endl;
@@ -111,13 +117,16 @@ int main() {
     }
 
     int idxMinDiff = FindMinDiffIndex(arr, n);
-    std::cout << "Номер элемента с минимальной разницей между суммами слева и справа: " << idxMinDiff << std::endl;
+    std::cout << "Индекс элемента с минимальной разницей между суммами слева и справа: " << idxMinDiff << std::endl;
 
     FindMaxAbsIndex(arr, n); // Выводит строчку ниже при выполнении самой функции
     // std::cout << "Максимальный по модулю элемент: " << maxAbsVal << ", его индекс: " << maxAbsIdx << std::endl;
 
-    std::cout << "Введите границы интервала для удаления элементов [a, b]: ";
-    std::cin >> a >> b;
+    std::cout << "Введите границы интервала для удаления элементов [a, b]: " << std::endl;
+    if (!(std::cin >> a && std::cin >> b)) {
+        std::cout << "Неправильный ввод" << std::endl;
+        return 1;
+    }
 
     CompressArray(arr, n, a, b);
     std::cout << "Сжатый массив: ";
