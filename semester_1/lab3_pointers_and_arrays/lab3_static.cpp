@@ -2,9 +2,8 @@
 #include <cstdlib>
 #include <cmath>
 
-const int MAX_SIZE = 100; // Максимальный размер статического массива
+const int MAX_SIZE = 100; 
 
-// Заполнение с клавиатуры
 void FillFromKeyboard(double arr[], int n) {
     for (int i = 0; i < n; i++) {
         std::cout << "Введите " << i << " элемент: ";
@@ -12,7 +11,6 @@ void FillFromKeyboard(double arr[], int n) {
     }
 }
 
-// Заполнение случайными числами из интервала [a,b]
 void FillRandom(double arr[], int n, double a, double b) {
     
     // for (int i = 0; i < n; i++) {
@@ -20,15 +18,12 @@ void FillRandom(double arr[], int n, double a, double b) {
     //     arr[i] = RandomNum;
 
     for (int i = 0; i < n; i++) {
-        // Генерируем случайное число от 0 до 1
-        double random01 = rand() / (double)RAND_MAX;
-        // Масштабируем в интервал [a, b]
-        arr[i] = a + random01 * (b - a);
+        double random01 = rand() / (double)RAND_MAX; // Генерируем случайное число от 0 до 1
+        arr[i] = a + random01 * (b - a); // Масштабируем в интервал [a, b]
     }
 }
 
-// Нахождение индекса с минимальной разницей сумм слева и справа
-int FindMinDiffIndex(double arr[], int n) {
+int FindMinDiffIndex(double arr[], int n) { // Нахождение индекса с минимальной разницей сумм слева и справа
     double totalSum = 0;
     for (int i = 0; i < n; i++)
         totalSum += arr[i];
@@ -49,8 +44,7 @@ int FindMinDiffIndex(double arr[], int n) {
 }
 
 
-// Функция возвращает индекс элемента массива с максимальным модулем
-int FindMaxAbsIndex(double arr[], int n) {
+int FindMaxAbsIndex(double arr[], int n) { // Функция возвращает индекс элемента массива с максимальным модулем
     int maxIdx = 0;
     double maxAbsVal = abs(arr[0]);
 
@@ -67,8 +61,7 @@ int FindMaxAbsIndex(double arr[], int n) {
 }
 
 
-// Сжатие массива с удалением элементов из интервала [a,b]
-void CompressArray(double arr[], int n, double a, double b) {
+void CompressArray(double arr[], int n, double a, double b) { // Сжатие массива с удалением элементов из интервала [a,b]
     int writeIdx = 0;
     for (int i = 0; i < n; i++) {
         if (!(arr[i] >= a && arr[i] <= b)) {

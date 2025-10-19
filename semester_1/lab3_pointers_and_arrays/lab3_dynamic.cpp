@@ -1,16 +1,20 @@
 #include <iostream>
 #include <cstdlib>
 
+void PrintArray(double arr[]) {
+    int size = sizeof(arr)/sizeof(double);
+    for (int i=0; i < size; ++i){
+        std::cout <<  << std::endl;
+    }
+}
 
-// Заполнение с клавиатуры
 void FillFromKeyboard(double* arr, int n) {
     for (int i = 0; i < n; i++) {
-        std::cout << "Введите " << i << " элемент: ";
+        std::cout << "Введите " << i+1 << " элемент: ";
         std::cin >> arr[i];
     }
 }
 
-// Заполнение случайными числами из интервала [a,b]
 void FillRandom(double* arr, int n, double a, double b) {
     
     // for (int i = 0; i < n; i++) {
@@ -18,10 +22,8 @@ void FillRandom(double* arr, int n, double a, double b) {
     //     arr[i] = RandomNum;
 
     for (int i = 0; i < n; i++) {
-        // Генерируем случайное число от 0 до 1
-        double random01 = rand() / (double)RAND_MAX;
-        // Масштабируем в интервал [a, b]
-        arr[i] = a + random01 * (b - a);
+        double random01 = rand() / (double)RAND_MAX; // Генерируем случайное число от 0 до 1
+        arr[i] = a + random01 * (b - a); // Масштабируем в интервал [a, b]
 
     }
 }
@@ -33,8 +35,7 @@ bool FindElementWMinFreq(double* arr, int n, double &foundValue, int &foundFrequ
         bool found = false;
 
         for (int i = 0; i < n; i++) {
-            // Считаем, сколько раз встречается arr[i]
-            int count = 0;
+            int count = 0; // Считаем, сколько раз встречается arr[i]
             for (int j = 0; j < n; j++) {
                 if (arr[i] == arr[j]) {
                     count++;
