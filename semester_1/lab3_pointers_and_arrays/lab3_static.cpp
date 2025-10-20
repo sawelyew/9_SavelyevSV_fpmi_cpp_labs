@@ -97,9 +97,9 @@ int main() {
     std::cin >> choice;
 
     int a, b;
-
+    int result;
     if (choice == 1) {
-        FillFromKeyboard(arr, n); // !!! СПРОСИТЬ КАК ВЫЙТИ ИЗ ПРОГРАММЫ В СЛУЧАЕ НЕПРАВИЛЬНОГО ВВОДА
+        result = FillFromKeyboard(arr, n);
     } 
     else if (choice == 2) {
         std::cout << "Введите границы интервала для случайных чисел [a, b]: " << std::endl;
@@ -116,6 +116,7 @@ int main() {
         return 1;
     }
 
+    if (result == 0){
     int idxMinDiff = FindMinDiffIndex(arr, n);
     std::cout << "Индекс элемента с минимальной разницей между суммами слева и справа: " << idxMinDiff << std::endl;
 
@@ -131,6 +132,7 @@ int main() {
     CompressArray(arr, n, a, b);
     std::cout << "Сжатый массив: ";
     PrintArray(arr, n);
+}
 
    return 0;
 }

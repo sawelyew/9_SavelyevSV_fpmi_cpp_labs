@@ -9,11 +9,16 @@ void PrintArray(int* arr, int n) {
     }
 }
 
-void FillFromKeyboard(int* arr, int n) {
+int FillFromKeyboard(int* arr, int n) {
     for (int i = 0; i < n; i++) {
         std::cout << "Введите " << i+1 << " элемент: ";
-        std::cin >> arr[i];
+        if (!(std::cin >> arr[i])) {
+            std::cout << "Неверный ввод" << std::endl;
+            delete[] arr;
+            return 1;
+        }
     }
+    return 0;
 }
 
 void FillRandom(int* arr, int n, int a, int b) {
@@ -111,8 +116,9 @@ int main() {
     std::cin >> choice;
 
     int a, b;
+    int result;
     if (choice == 1) {
-        FillFromKeyboard(arr, n); // ТАКЖЕ СПРОСИТЬ КАК И СО СТАТИКОМ ПРО НЕКОРРЕКТНЫЙ ВВОД
+        result = FillFromKeyboard(arr, n); 
     } else if (choice == 2) {
         std::cout << "Введите границы интервала [a, b]: ";
         if (!(std::cin >> a && std::cin >> b)) {
@@ -128,6 +134,7 @@ int main() {
         return 1;
     }
 
+    if (result == 0) {
     int val;
     int freq;
     if (FindElementWMinFreq(arr, n, val, freq)) {
@@ -140,6 +147,7 @@ int main() {
     RearrangeArray(arr, n);
     std::cout << "Преобразованный массив: ";
     PrintArray(arr, n);
+    }
 
     delete[] arr;
     return 0;
