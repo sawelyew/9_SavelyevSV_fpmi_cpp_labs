@@ -61,7 +61,6 @@ void ChangeColumns(int** arr, int rows, int columns) {
     for (int StartColumn=0; StartColumn <= EndColumn; StartColumn++){
         for (int StartRow=0; StartRow <= EndRow; StartRow++){
             std::swap(arr[StartRow][StartColumn], arr[StartRow][EndColumn]);
-            EndRow--;
         }
         EndColumn--;
     }
