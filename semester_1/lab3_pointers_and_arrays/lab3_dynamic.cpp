@@ -30,13 +30,13 @@ void FillRandom(int* arr, int n, int a, int b) {
 }
 
 // 1 задача
-bool FindElementWMinFreq(int* arr, int n, int &foundValue, int &foundFrequency) {
+bool FindMaxElementWMinFreq(int* arr, int n, int &foundValue, int &foundFrequency) {
     for (int freqCount = 1; freqCount <= n; freqCount++) {
         int maxVal = INT_MAX;
         bool found = false;
 
         for (int i = 0; i < n; i++) {
-            int count = 0; // Считаем, сколько раз встречается arr[i]
+            int count = 0;
             for (int j = 0; j < n; j++) {
                 if (arr[i] == arr[j]) {
                     count++;
@@ -66,7 +66,8 @@ int SumBetweenFirstLastZero(int* arr, int n) {
     int firstZero = -1, lastZero = -1;
     for (int i = 0; i < n; i++) {
         if (arr[i] == 0) { 
-            if (firstZero == -1) firstZero = i;
+            if (firstZero == -1) 
+                firstZero = i;
             lastZero = i;
         }
     }
@@ -134,10 +135,9 @@ int main() {
         return 1;
     }
 
-    if (result == 0) {
     int val;
     int freq;
-    if (FindElementWMinFreq(arr, n, val, freq)) {
+    if (FindMaxElementWMinFreq(arr, n, val, freq)) {
         std::cout << "Найденный элемент: " << val << ", встречается " << freq << " раз" << std::endl;
     }
 
@@ -147,7 +147,6 @@ int main() {
     RearrangeArray(arr, n);
     std::cout << "Преобразованный массив: ";
     PrintArray(arr, n);
-    }
 
     delete[] arr;
     return 0;

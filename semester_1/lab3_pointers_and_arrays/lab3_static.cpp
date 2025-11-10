@@ -31,17 +31,19 @@ void FillRandom(int* arr, int n, int a, int b) {
     }
 }
 
-int FindMinDiffIndex(int arr[], int n) { // Нахождение индекса с минимальной разницей сумм слева и справа
+int FindMinDiffIndex(int arr[], int n) {
     int totalSum = 0;
     for (int i = 0; i < n; i++)
         totalSum += arr[i];
     int leftSum = 0;
     int minIndex = 0;
     int minDiff = totalSum;
+    int rightSum;
+    int diff;
 
     for (int i = 0; i < n; i++) {
-        int rightSum = totalSum - leftSum - arr[i];
-        int diff = abs(leftSum - rightSum);
+        rightSum = totalSum - leftSum - arr[i];
+        diff = abs(leftSum - rightSum);
         if (diff < minDiff) {
             minDiff = diff;
             minIndex = i;
@@ -52,7 +54,7 @@ int FindMinDiffIndex(int arr[], int n) { // Нахождение индекса 
 }
 
 
-int FindMaxAbsIndex(int arr[], int n) { // Функция возвращает индекс элемента массива с максимальным модулем
+int FindMaxAbsIndex(int arr[], int n) {
     int maxIdx = 0;
     int maxAbsVal = abs(arr[0]);
 
@@ -69,7 +71,7 @@ int FindMaxAbsIndex(int arr[], int n) { // Функция возвращает �
 }
 
 
-void CompressArray(int* arr, int n, int a, int b) { // Сжатие массива с удалением элементов из интервала [a,b]
+void CompressArray(int* arr, int n, int a, int b) {
     int writeIdx = 0;
     for (int i = 0; i < n; i++) {
         if (!(arr[i] >= a && arr[i] <= b)) {
@@ -120,7 +122,7 @@ int main() {
     int idxMinDiff = FindMinDiffIndex(arr, n);
     std::cout << "Индекс элемента с минимальной разницей между суммами слева и справа: " << idxMinDiff << std::endl;
 
-    FindMaxAbsIndex(arr, n); // Выводит строчку ниже при выполнении самой функции
+    FindMaxAbsIndex(arr, n);
     // std::cout << "Максимальный по модулю элемент: " << maxAbsVal << ", его индекс: " << maxAbsIdx << std::endl;
 
     std::cout << "Введите границы интервала для удаления элементов [a, b]: " << std::endl;

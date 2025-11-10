@@ -104,7 +104,7 @@ int main() {
             return 1;
         }
         FillRandom(arr, rows, columns, a, b);
-    } 
+    }
     else {
         std::cout << "Некорректный выбор\n";
         for (int i=0; i<rows; i++) {
