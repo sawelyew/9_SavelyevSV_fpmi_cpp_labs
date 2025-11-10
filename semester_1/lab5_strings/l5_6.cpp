@@ -22,13 +22,24 @@ std::vector<std::string> SplitText(const std::string& text, const std::string& d
     return words;
 }
 
+bool IsNumber(std::string text){
+    if (std::stoi(text))
+        return true;
+    else 
+        return false;
+}
 
+std::string FindNumbers(const std::vector<std::string>& vector) {
 
-void PrintVector(const std::vector<std::string>& vector) {
+    std::string nums;
     for (size_t i = 0; i < vector.size(); ++i) {
-        std::cout << vector[i] << ' ';
+        if (IsNumber(vector[i])){
+            nums += vector[i];
+            while(i < vector.size()-1)
+                nums += ",,";
+        }
     }
-    std::cout << std::endl;
+    return nums;
 }
 
 
@@ -42,7 +53,8 @@ int main() {
 
     std::string delimeters = " ,.?!:;";
     std::vector<std::string> words = SplitText(text, delimeters);
-
+    std::string nums = FindNumbers(words);
+    std::cout << "Четные числа из исходной строки: " << nums << std::endl;
 
     return 0;
 }
