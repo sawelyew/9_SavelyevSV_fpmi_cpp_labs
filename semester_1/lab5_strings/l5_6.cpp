@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
 std::vector<std::string> SplitText(const std::string& text, const std::string& delimeters) {
     
@@ -7,7 +8,7 @@ std::vector<std::string> SplitText(const std::string& text, const std::string& d
 
     std::string::size_type beg_index = 0;
     std::string::size_type end_index = text.find_first_of(delimeters, beg_index);
-
+    
     while (beg_index != std::string::npos) {
     
         std::string word = text.substr(beg_index, end_index - beg_index);
@@ -55,6 +56,5 @@ int main() {
     std::vector<std::string> words = SplitText(text, delimeters);
     std::string nums = FindNumbers(words);
     std::cout << "Четные числа из исходной строки: " << nums << std::endl;
-
     return 0;
 }

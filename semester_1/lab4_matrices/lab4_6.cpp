@@ -18,8 +18,7 @@ int FillFromKeyboard(int** arr, int rows, int columns) {
         for (int j=0; j<columns; j++){
             std::cout << j+1 << " колонка: ";
             if (!(std::cin >> arr[i][j])){
-                std::cout << "Некорректный ввод" << std::endl;
-                return 1;
+                throw "Некорректный ввод";
             }
         }
     }
@@ -71,16 +70,14 @@ void ChangeColumns(int** arr, int rows, int columns) {
 int main() {
     int columns, rows;
 
-    std::cout << "Введите количество строк матрицы: ";
+    try {std::cout << "Введите количество строк матрицы: ";
     if (!(std::cin >> rows) || rows <= 0) {
-        std::cout << "Неверный ввод";
-        return 1;
+        throw "Количество строк матрицы должно быть целым положительным числом";
     }
 
     std::cout << "Введите количество столбцов матрицы: ";
     if (!(std::cin >> columns) || columns <= 0) {
-        std::cout << "Неверный ввод";
-        return 1;
+        throw "Количество столбцов матрицы должно быть целым положительным числом";
     }
 
     int **arr = new int* [rows];
@@ -100,29 +97,28 @@ int main() {
     else if (choice == 2) {
         std::cout << "Введите границы интервала [a, b]: ";
         if (!(std::cin >> a) || (!(std::cin >> b))) {
-            std::cout << "Неверный ввод" << std::endl;
-            return 1;
+            throw "Неверный ввод интервала.";
         }
         FillRandom(arr, rows, columns, a, b);
     }
     else {
-        std::cout << "Некорректный выбор\n";
         for (int i=0; i<rows; i++) {
             delete[] arr[i];
-    }
+        }
         delete[] arr;
-        return 1;
+        throw "Некорректный выбор\n";
     }
-
-    if (result == 0) {
     PrintArray(arr, rows, columns);
     SumInRowsWOZero(arr, rows, columns);
     ChangeColumns(arr, rows, columns);
-    }
     
-
+    
     for (int i=0; i<rows; i++) {
         delete[] arr[i];
     }
     delete[] arr;
+}
+    catch (const char* msg){
+        std::cerr << msg << std::endl;
+    }
 }
