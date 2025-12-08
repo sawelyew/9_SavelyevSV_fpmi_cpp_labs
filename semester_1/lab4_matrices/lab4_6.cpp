@@ -119,6 +119,6 @@ int main() {
     delete[] arr;
 }
     catch (const char* msg){
-        std::cerr << msg << std::endl;
+        std::cerr << msg;
     }
 }
