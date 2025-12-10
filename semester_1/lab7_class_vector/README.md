@@ -86,4 +86,3 @@ make test_multiplication
 make test_vector
 ./test_vector
 ```
-

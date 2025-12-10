@@ -60,11 +60,11 @@ const int& Vector::At(size_t index) const{
     return array_[index];
 }
 
-int Vector::Size(){
+const int Vector::Size() const {
     return size_;
 }
 
-int Vector::Capacity(){
+const int Vector::Capacity() const{
     return capacity_;
 }
 
@@ -117,4 +117,5 @@ std::ostream& operator<< (std::ostream& os, const Vector& vector){
         }
     }
     os << "]";
+    return os;
 }
