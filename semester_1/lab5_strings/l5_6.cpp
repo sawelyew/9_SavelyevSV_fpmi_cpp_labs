@@ -48,22 +48,22 @@ std::string FindNumbers(const std::vector<std::string>& vector) {
 
 
 int main() {
+    try {
     std::string text;
     std::string delimeters = " ,.?!:;";
-
     std::cout << "Введите строку: " << std::endl;
     if (!(std::getline(std::cin, text))){
         throw "Не удалось прочитать строку";
     }
-    try {
+
     std::vector<std::string> words = SplitText(text, delimeters);
     if (words.size() == 0){
-        throw "Your string is empty.";
+        throw "Ваша строка пуста.";
     }
     
     std::string nums = FindNumbers(words);
     if (nums.size() == 0){
-        throw "No one even number has been founded.";
+        throw "Не было найдено ни одного четного числа.";
     }
 
     std::cout << "Четные числа из исходной строки: " << nums << std::endl;

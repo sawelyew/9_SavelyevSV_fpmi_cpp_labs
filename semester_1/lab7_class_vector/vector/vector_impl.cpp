@@ -60,11 +60,11 @@ const int& Vector::At(size_t index) const{
     return array_[index];
 }
 
-const int Vector::Size() const {
+size_t Vector::Size() const {
     return size_;
 }
 
-const int Vector::Capacity() const{
+size_t Vector::Capacity() const{
     return capacity_;
 }
 
@@ -79,9 +79,8 @@ void Vector::PushBack(int number){
         int* arr = new int[capacity_];
         std::copy(array_, array_ + size_, arr);
         delete[] array_;
-        array_ = new int[capacity_];
         array_ = arr;
-        delete[] arr;
+        // delete[] arr;
     }
     array_[size_++] = number;
 }
@@ -89,8 +88,8 @@ void Vector::PushBack(int number){
 void Vector::PopBack(){
     if (size_ == 0){
         throw std::out_of_range("Ошибка! Невозможно удалить элемент из вектора с неположительным размером.");
-    size_--;
     }
+    size_--;
 }
 
 void Vector::Clear(){
@@ -103,7 +102,7 @@ void Vector::Reserve(size_t new_capacity){
         std::copy(array_, array_ + size_, arr);
         delete[] array_;
         array_ = arr;
-        delete[] arr;
+        // delete[] arr;
         capacity_ = new_capacity;
     }
 }
@@ -113,7 +112,7 @@ std::ostream& operator<< (std::ostream& os, const Vector& vector){
     for (size_t i = 0; i < vector.size_; ++i){
         os << vector.array_[i];
         if (i + 1 < vector.size_){
-            os << ",";
+            os << ", ";
         }
     }
     os << "]";

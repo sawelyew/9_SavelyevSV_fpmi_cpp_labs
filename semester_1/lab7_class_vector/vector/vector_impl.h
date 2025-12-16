@@ -22,8 +22,8 @@ class Vector {
         const int& operator[](size_t) const;
         int& At(size_t);
         const int& At(size_t) const;
-        const int Size() const;
-        const int Capacity() const;
+        size_t Size() const;
+        size_t Capacity() const;
         void PushBack(int);
         void PopBack();
         void Clear();

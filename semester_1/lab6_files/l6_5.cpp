@@ -51,8 +51,7 @@ int main() {
         throw "Error. Couldn't open the file.";
     }
 
-    std::getline(in, line);
-    if (line.empty()){
+    if (!in.good()){
         throw "File is empty.";
     }
 
