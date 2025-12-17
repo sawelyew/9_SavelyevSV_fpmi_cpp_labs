@@ -40,7 +40,7 @@ public:
         }
 
         bool operator==(const ForwardListIterator& other) const {
-            return position_ == other.position_;;
+            return position_ == other.position_;
         }
 
         bool operator!=(const ForwardListIterator& other) const {
