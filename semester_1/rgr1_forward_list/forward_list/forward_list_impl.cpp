@@ -77,7 +77,7 @@ void ForwardList::PopFront() {
 }
 
 void ForwardList::Remove(int32_t value) {
-    while (first_ && first_->value_ == value) {
+    while (first_->value_ == value) {
         PopFront();
     }
     if (!first_) {
