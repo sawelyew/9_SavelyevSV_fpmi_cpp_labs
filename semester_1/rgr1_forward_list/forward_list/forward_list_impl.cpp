@@ -33,12 +33,13 @@ ForwardList::ForwardList(std::initializer_list<int32_t> list): first_(nullptr), 
     for (int32_t value : list) {
         Node* new_node = new Node(value);
 
-        if (first_ == nullptr) {
-            first_ = new_node;
-        } else {
+        if (first_){
             current->next_ = new_node;
         }
-
+        else{
+            first_ = new_node;
+        }
+        
         current = new_node;
         size_++;
     }
