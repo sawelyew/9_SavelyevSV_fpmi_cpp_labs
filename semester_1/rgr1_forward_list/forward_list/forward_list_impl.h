@@ -40,7 +40,7 @@ public:
         }
 
         bool operator==(const ForwardListIterator& other) const {
-            return (*this == other);
+            return position_ == other.position_;;
         }
 
         bool operator!=(const ForwardListIterator& other) const {
@@ -62,7 +62,7 @@ public:
     // methods for "ranged-based for loop"
     // 1) non-const version
     ForwardListIterator begin() {
-        return ForwardListIterator(front_);
+        return ForwardListIterator(first_);
     }
     ForwardListIterator end() {
         return ForwardListIterator(nullptr);
@@ -72,7 +72,7 @@ public:
     // TODO: think about return type
     // (is it exactly ForwardListIterator?)
     ForwardListIterator begin() const {
-        return ForwardListIterator(front_);
+        return ForwardListIterator(first_);
     }
     ForwardListIterator end() const {
         return ForwardListIterator(nullptr);
@@ -119,12 +119,12 @@ public:
     void Print(std::ostream& out);
 
     // get first element of the list
-    int32_t Front() const;
+    int32_t Front();
 
     // get size of the list
-    size_t Size() const;
+    size_t Size();
 
 private:
-    Node* front_;
-    size_t size_;
+    Node* first_ = nullptr;
+    size_t size_ = 0;
 };

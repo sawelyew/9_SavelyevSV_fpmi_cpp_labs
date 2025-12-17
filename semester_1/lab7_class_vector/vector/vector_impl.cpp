@@ -1,6 +1,6 @@
 #include "vector_impl.h"
 
-Vector::Vector() {}
+Vector::Vector(){}
 
 Vector::Vector(size_t size): size_(size), capacity_(size), array_(new int[size_]) {
     for (size_t i=0; i < size_; ++i){

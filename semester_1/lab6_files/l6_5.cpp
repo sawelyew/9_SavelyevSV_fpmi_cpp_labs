@@ -43,6 +43,7 @@ int LongestPalSubLen(const std::string& string){
 
 int main() {
     try{
+    setlocale(LC_ALL, "Russian");
     std::ifstream in;
     in.open("input.txt");
     std::string line;

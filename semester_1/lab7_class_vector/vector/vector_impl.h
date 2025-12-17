@@ -1,7 +1,5 @@
 #pragma once
-#include <cstddef>
 #include <initializer_list>
-#include <algorithm>
 #include <stdexcept>
 #include <iostream>
 

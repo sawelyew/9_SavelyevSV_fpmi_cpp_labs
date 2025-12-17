@@ -70,7 +70,9 @@ void ChangeColumns(int** arr, int rows, int columns) {
 int main() {
     int columns, rows;
 
-    try {std::cout << "Введите количество строк матрицы: ";
+    try {
+    setlocale(LC_ALL, "Russian");  
+    std::cout << "Введите количество строк матрицы: ";
     if (!(std::cin >> rows) || rows <= 0) {
         throw "Количество строк матрицы должно быть целым положительным числом";
     }

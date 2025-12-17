@@ -1,40 +1,55 @@
 #include "forward_list_impl.h"
 
-ForwardList::ForwardList() : front_(nullptr), size_(0) {}
+ForwardList::ForwardList(): first_(nullptr), size_(0) {}
 
 
-ForwardList::ForwardList(const ForwardList& rhs) : front_(nullptr), size_(0) {
-
+ForwardList::ForwardList(const ForwardList& rhs): first_(nullptr), size_(0) {
+    
+    Node* current = rhs.first_;
+    Node* prev = nullptr;
+    size_ = rhs.size_;
+    while(current){
+        Node* new_node = new Node(current->value_);
+        new_node->next_ = nullptr;
+        if(first_){
+            prev->next_ = new_node;
+        }
+        else{
+            first_ = new_node;
+        }
+        current = current->next_;
+        prev = new_node;
+    }
 }
 
-ForwardList::ForwardList(size_t count, int32_t value) : front_(nullptr), size_(0) {
+ForwardList::ForwardList(size_t count, int32_t value) : first_(nullptr), size_(0) {
     for (size_t i = 0; i < count; i++) {
         PushFront(value);
     }
 }
 
-ForwardList::ForwardList(std::initializer_list<int32_t> list):  front_(nullptr), size_(0) {
+ForwardList::ForwardList(std::initializer_list<int32_t> list): first_(nullptr), size_(0) {
+    Node* current = nullptr;
 
+    for (int32_t value : list) {
+        Node* new_node = new Node(value);
+
+        if (first_ == nullptr) {
+            first_ = new_node;
+        } else {
+            current->next_ = new_node;
+        }
+
+        current = new_node;
+        size_++;
+    }
 }
 
 ForwardList& ForwardList::operator=(const ForwardList& rhs) {
-    if (this == &rhs) {
-        return *this;
-    }
-    Clear();
-    Node* cur = rhs.front_;
-    Node* prev = nullptr;
-    while(cur) {
-        Node* new_node = new Node(cur->value_);
-        if (front_) {
-            prev->next_ = new_node;
-        }
-        else {
-            front_ = new_node;
-        }
-        cur = cur->next_;
-        prev = new_node;
-        ++size_;
+    if (this != &rhs) {
+    ForwardList temporary(rhs);
+    std::swap(temporary.first_, first_);
+    std::swap(temporary.size_, size_);
     }
     return *this;
 }
@@ -45,84 +60,84 @@ ForwardList::~ForwardList() {
 
 void ForwardList::PushFront(int32_t value) {
     Node* new_node = new Node(value);
-    new_node->next_ = front_;
-    front_ = new_node;
+    new_node->next_ = first_;
+    first_ = new_node;
     size_++;
 }
 
 
 void ForwardList::PopFront() {
-    if (front_ == nullptr) {
+    if (first_ == nullptr) {
         throw "List is empty";
     }
-    Node* new_front = front_->next_;
-    delete front_;
-    front_ = new_front;
+    Node* new_first = first_->next_;
+    delete first_;
+    first_ = new_first;
     size_--;
 }
 
 void ForwardList::Remove(int32_t value) {
-    while (front_ && front_->value_ == value) {
+    while (first_ && first_->value_ == value) {
         PopFront();
     }
-    if (!front_) {
+    if (!first_) {
         return;
     }
-    Node* prev = front_;
-    Node* cur = prev->next_;
-    while (cur) {
-        if (cur->value_ == value) {
+    Node* prev = first_;
+    Node* current = prev->next_;
+    while (current) {
+        if (current->value_ == value) {
             --size_;
-            prev->next_ = cur->next_;
-            delete cur;
-            cur = prev->next_; 
+            prev->next_ = current->next_;
+            delete current;
+            current = prev->next_; 
         }
         else {
-            prev = cur;
-            cur = cur->next_;
+            prev = current;
+            current = current->next_;
         }
     }
 }
 
 
 void ForwardList::Clear() {
-    while(front_) {
+    while(first_) {
         PopFront();
     }
 }
 
 
 bool ForwardList::FindByValue(int32_t value) {
-    Node* cur = front_;
-    while (cur) {
-        if (cur->value_ == value) {
+    Node* current = first_;
+    while (current) {
+        if (current->value_ == value) {
             return true;
         }
-        cur = cur->next_;
+        current = current->next_;
     }
     return false;
 }
 
 void ForwardList::Print(std::ostream& out) {
-    Node* cur = front_;
-    while(cur) {
-        if (cur == front_) {
-            out << cur->value_;
+    Node* current = first_;
+    while(current) {
+        if (current == first_) {
+            out << current->value_;
         }
         else {
-            out << " " << cur->value_;;
+            out << " " << current->value_;;
         }
-        cur = cur->next_;
+        current = current->next_;
     }
 }
 
-int32_t ForwardList::Front() const {
-    if (front_ == nullptr) {
+int32_t ForwardList::Front(){
+    if (first_ == nullptr) {
         throw "List is empty";
     }
-    return front_->value_;
+    return first_->value_;
 }
 
-size_t ForwardList::Size() const {
+size_t ForwardList::Size(){
     return size_;
 }
