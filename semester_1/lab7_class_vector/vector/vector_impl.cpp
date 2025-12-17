@@ -80,7 +80,6 @@ void Vector::PushBack(int number){
         std::copy(array_, array_ + size_, arr);
         delete[] array_;
         array_ = arr;
-        // delete[] arr;
     }
     array_[size_++] = number;
 }
@@ -102,7 +101,6 @@ void Vector::Reserve(size_t new_capacity){
         std::copy(array_, array_ + size_, arr);
         delete[] array_;
         array_ = arr;
-        // delete[] arr;
         capacity_ = new_capacity;
     }
 }
