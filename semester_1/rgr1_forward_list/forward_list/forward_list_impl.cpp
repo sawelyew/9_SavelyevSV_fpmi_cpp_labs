@@ -10,7 +10,6 @@ ForwardList::ForwardList(const ForwardList& rhs): first_(nullptr), size_(0) {
     size_ = rhs.size_;
     while(current){
         Node* new_node = new Node(current->value_);
-        new_node->next_ = nullptr;
         if(first_){
             prev->next_ = new_node;
         }
