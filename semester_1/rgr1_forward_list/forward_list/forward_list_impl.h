@@ -125,6 +125,6 @@ public:
     size_t Size();
 
 private:
-    Node* first_ = nullptr;
-    size_t size_ = 0;
+    Node* first_;
+    size_t size_;
 };

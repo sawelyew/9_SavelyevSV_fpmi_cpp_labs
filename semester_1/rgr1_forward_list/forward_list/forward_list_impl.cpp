@@ -4,10 +4,10 @@ ForwardList::ForwardList(): first_(nullptr), size_(0) {}
 
 
 ForwardList::ForwardList(const ForwardList& rhs): first_(nullptr), size_(0) {
-    
     Node* current = rhs.first_;
     Node* prev = nullptr;
     size_ = rhs.size_;
+
     while(current){
         Node* new_node = new Node(current->value_);
         if(first_){
@@ -23,7 +23,10 @@ ForwardList::ForwardList(const ForwardList& rhs): first_(nullptr), size_(0) {
 
 ForwardList::ForwardList(size_t count, int32_t value) : first_(nullptr), size_(0) {
     for (size_t i = 0; i < count; i++) {
-        PushFront(value);
+        Node* new_node = new Node(value);
+        new_node->next_ = first_;
+        first_ = new_node;
+        size_++;
     }
 }
 
@@ -47,15 +50,21 @@ ForwardList::ForwardList(std::initializer_list<int32_t> list): first_(nullptr), 
 
 ForwardList& ForwardList::operator=(const ForwardList& rhs) {
     if (this != &rhs) {
-    ForwardList temporary(rhs);
-    std::swap(temporary.first_, first_);
-    std::swap(temporary.size_, size_);
+        ForwardList temporary(rhs);
+        std::swap(temporary.first_, first_);
+        std::swap(temporary.size_, size_);
     }
     return *this;
 }
 
 ForwardList::~ForwardList() {
-    Clear();
+    
+    while(first_) {
+        Node* new_first = first_->next_;
+        delete first_;
+        first_ = new_first;
+        size_--;
+    };
 }
 
 void ForwardList::PushFront(int32_t value) {
@@ -77,14 +86,20 @@ void ForwardList::PopFront() {
 }
 
 void ForwardList::Remove(int32_t value) {
+
     while (first_->value_ == value) {
-        PopFront();
+        Node* new_first = first_->next_;
+        delete first_;
+        first_ = new_first;
+        size_--;
     }
     if (!first_) {
         return;
     }
+
     Node* prev = first_;
     Node* current = prev->next_;
+
     while (current) {
         if (current->value_ == value) {
             --size_;
@@ -101,14 +116,19 @@ void ForwardList::Remove(int32_t value) {
 
 
 void ForwardList::Clear() {
+
     while(first_) {
-        PopFront();
+        Node* new_first = first_->next_;
+        delete first_;
+        first_ = new_first;
+        size_--;
     }
 }
 
 
 bool ForwardList::FindByValue(int32_t value) {
     Node* current = first_;
+
     while (current) {
         if (current->value_ == value) {
             return true;
@@ -120,6 +140,7 @@ bool ForwardList::FindByValue(int32_t value) {
 
 void ForwardList::Print(std::ostream& out) {
     Node* current = first_;
+
     while(current) {
         if (current == first_) {
             out << current->value_;

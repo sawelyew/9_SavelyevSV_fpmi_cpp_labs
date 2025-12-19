@@ -21,6 +21,9 @@ Vector::Vector(const Vector& other): size_(other.size_), capacity_(other.capacit
 Vector& Vector::operator= (const Vector& other){
     if (this == &other)
         return *this;
+    
+    //Vector copy(other);
+    //Swap(copy);
 
     size_ = other.size_;
     capacity_ = other.capacity_;
