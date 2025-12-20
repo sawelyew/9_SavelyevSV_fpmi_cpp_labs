@@ -3,48 +3,48 @@
 ForwardList::ForwardList(): first_(nullptr), size_(0) {}
 
 
-ForwardList::ForwardList(const ForwardList& rhs): first_(nullptr), size_(0) {
+ForwardList::ForwardList(const ForwardList& rhs): first_(nullptr), size_(0){
     Node* current = rhs.first_;
-    Node* prev = nullptr;
-    size_ = rhs.size_;
+    Node* previous = nullptr;
 
     while(current){
         Node* new_node = new Node(current->value_);
-        if(first_){
-            prev->next_ = new_node;
-        }
-        else{
+        if (first_ == nullptr){
             first_ = new_node;
         }
+        else{
+            previous->next_ = new_node;
+        }
+        previous = new_node;
         current = current->next_;
-        prev = new_node;
     }
+
+    size_ = rhs.size_;
 }
 
-ForwardList::ForwardList(size_t count, int32_t value) : first_(nullptr), size_(0) {
-    for (size_t i = 0; i < count; i++) {
+ForwardList::ForwardList(size_t count, int32_t value): first_(nullptr), size_(0) {
+    for (size_t i = 0; i < count; ++i) {
         Node* new_node = new Node(value);
+
         new_node->next_ = first_;
         first_ = new_node;
-        size_++;
+        ++size_;
     }
 }
 
-ForwardList::ForwardList(std::initializer_list<int32_t> list): first_(nullptr), size_(0) {
+
+ForwardList::ForwardList(std::initializer_list<int32_t> list): first_(nullptr), size_(list.size()){
     Node* current = nullptr;
 
-    for (int32_t value : list) {
+    for (int32_t value: list){
         Node* new_node = new Node(value);
-
-        if (first_){
-            current->next_ = new_node;
-        }
-        else{
+        if (first_ == nullptr){
             first_ = new_node;
         }
-        
+        else{
+            current->next_ = new_node;
+        }
         current = new_node;
-        size_++;
     }
 }
 
@@ -58,7 +58,6 @@ ForwardList& ForwardList::operator=(const ForwardList& rhs) {
 }
 
 ForwardList::~ForwardList() {
-    
     while(first_) {
         Node* new_first = first_->next_;
         delete first_;
