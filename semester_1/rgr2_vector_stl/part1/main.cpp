@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <exception>
 
 std::vector<std::string> SplitText(const std::string& text, const std::string& delimeters) {
     
@@ -36,12 +37,21 @@ std::vector<std::string> SplitText(const std::string& text, const std::string& d
 //     return nums;
 // }
 
+// bool IsNumber(std::string text){
+//     if (text.find_first_not_of("0123456789") == std::string::npos){
+//         return true;
+//     }
+//     else{
+//         return false;
+//     }
+// }
+
 bool IsNumber(std::string text){
-    if (text.find_first_not_of("0123456789") == std::string::npos){
-        return true;
+    if (!(std::stoi(text))){
+        throw std::invalid_argument("Ошибка. Все элементы вектора должны быть целыми числами.");
     }
     else{
-        return false;
+        return true;
     }
 }
 
@@ -58,9 +68,6 @@ std::vector<int> FillVectorWithInts(const std::vector<std::string> &vector){
     for(int i=0; i<vector.size(); ++i){
         if(IsNumber(vector[i])){
             nums.push_back(std::stoi(vector[i]));
-        }
-        else{
-            throw "Ошибка! Все элементы вектора должны быть целыми числами.";
         }
     }
     return nums;
@@ -91,7 +98,7 @@ void ChangeAllZeroElemWAvgVal(std::vector<int> &vector, int avg_val){
     }
 }
 
-int CalcSumOfElemsInInterval(std::vector<int> vector, int a, int b){
+int CalcSumOfElemsInInterval(const std::vector<int> &vector, int a, int b){
     int sum = 0;
     for (int i=0; i<vector.size(); ++i){
         if (vector[i] >= a && vector[i] < b){
@@ -130,11 +137,11 @@ void ChangeElemWEvenValToDiffMinAndMaxVal(std::vector<int> &vector, int diff){
     }
 }
 
-void EraseElemsWithEqAbs(std::vector<int> &vect){
-    for(int i=0; i<vect.size(); ++i){
-        for(int j=i+1; j<vect.size(); j++){
-            if(abs(vect[i]) == abs(vect[j])){
-                vect.erase(vect.begin() + j);
+void EraseElemsWithEqAbs(std::vector<int> &vector){
+    for(int i=0; i<vector.size(); ++i){
+        for(int j=i+1; j<vector.size(); j++){
+            if(abs(vector[i]) == abs(vector[j])){
+                vector.erase(vector.begin() + j);
                 --j;
             }
         }
@@ -154,6 +161,9 @@ int main() {
             throw "Ошибка! Пустой ввод.";
         }
 
+        std::vector<std::string> splitted_elements = SplitText(input, delimeters);
+        vect = FillVectorWithInts(splitted_elements);
+
         int input_num;
         std::cout << "Введите число, с которым будут сравниваться элементы вектора: ";
         if (!(std::cin >> input_num)){
@@ -170,8 +180,6 @@ int main() {
             std::swap(a,b);
         }
 
-        std::vector<std::string> splitted_elements = SplitText(input, delimeters);
-        vect = FillVectorWithInts(splitted_elements);
 
         int sum_of_elems = VectorElemSum(vect);
         int avg_val = sum_of_elems/vect.size();
@@ -216,8 +224,8 @@ int main() {
 
 
     }
-    catch(const char* msg){
-        std::cerr << msg << std::endl;
+    catch(const std::exception& err){
+        std::cerr << err.what() << std::endl;
     }
 
     return 0;
