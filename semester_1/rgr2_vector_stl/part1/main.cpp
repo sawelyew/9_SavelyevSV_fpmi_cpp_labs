@@ -46,13 +46,21 @@ std::vector<std::string> SplitText(const std::string& text, const std::string& d
 //     }
 // }
 
-bool IsNumber(std::string text){
-    if (!(std::stoi(text))){
-        throw std::invalid_argument("Ошибка. Все элементы вектора должны быть целыми числами.");
+
+
+bool IsNumber(const std::string &text){
+    if (text.empty()) return false;
+    size_t start = 0;
+
+    if (text[0] == '-'){
+        if (text.size() == 1) return false;
+        start = 1;
     }
-    else{
-        return true;
+
+    for (size_t i = start; i < start; ++i){
+        if (!(isdigit(text[i]))) return false;
     }
+    return true;
 }
 
 int VectorElemSum(const std::vector<int> &vector){
@@ -154,11 +162,13 @@ int main() {
 
         std::vector<int> vect;
         std::string input;
-        std::cout << "Введите элементы вектора(целые числа) через запятую: \n";
-        std::cin >> input;
-
+        std::cout << "Введите элементы вектора(целые числа) через запятую либо через пробел: \n";
+        if (!(std::getline(std::cin, input))){
+            throw std::runtime_error("Ошибка. Не удалось ввести элементы.");
+        }
+    
         if (input.size() == 0){
-            throw "Ошибка! Пустой ввод.";
+            throw std::runtime_error("Ошибка! Пустой ввод.");
         }
 
         std::vector<std::string> splitted_elements = SplitText(input, delimeters);
@@ -167,16 +177,16 @@ int main() {
         int input_num;
         std::cout << "Введите число, с которым будут сравниваться элементы вектора: ";
         if (!(std::cin >> input_num)){
-            throw "Ошибка. Не удалось ввести число, с которым будут сравниваться элементы вектора.";
+            throw std::runtime_error("Ошибка. Не удалось ввести число, с которым будут сравниваться элементы вектора.");
         }
 
         int a, b;
         std::cout << "Введите границы интервала: ";
         if(!(std::cin >> a >> b)){
-            throw "Ошибка! Неверный ввод границ интервала.";
+            throw std::runtime_error("Ошибка! Неверный ввод границ интервала.");
         }
 
-        if (a<b){
+        if (a>b){
             std::swap(a,b);
         }
 
@@ -221,12 +231,17 @@ int main() {
 
 
 
-
+        return 0;
 
     }
-    catch(const std::exception& err){
-        std::cerr << err.what() << std::endl;
+    catch (const std::invalid_argument& e) {
+        std::cerr << e.what() << std::endl;
+        return 1;
+    } catch (const std::runtime_error& e) {
+        std::cerr << e.what() << std::endl;
+        return 1;
+    } catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+        return 1;
     }
-
-    return 0;
 }

@@ -55,7 +55,7 @@ int main() {
     if (!(std::getline(std::cin, text))){
         throw "Не удалось прочитать строку";
     }
-
+    
     std::vector<std::string> words = SplitText(text, delimeters);
     if (words.size() == 0){
         throw "Ваша строка пуста.";
