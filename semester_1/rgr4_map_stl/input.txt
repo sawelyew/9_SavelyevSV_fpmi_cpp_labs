@@ -1,0 +1,5 @@
+Borisovich S.V. 222001 [Math:10, History:9, English:5, Programming:8]
+Borisovich S.V. 222004 [Math:3, History:5, English:3, Programming:3]
+Lermontov V.V. 5425242 [Literature:10, Art:10, French:10]
+Kaprov A.M. 222002 [Math:7, History:3, English:5, Programming:5]
+Pushkin M.M. 222003 [Math:8, History:4, English:5, Programming:3]
