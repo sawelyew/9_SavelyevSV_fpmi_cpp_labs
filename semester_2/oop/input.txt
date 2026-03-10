@@ -1,0 +1,4 @@
+Lecture;439;Calculus;Tanygina Anastasiya Nikolaevna;Monday;90
+Lecture;439;CPADevelopment;Rubashko Nataliya Konstantinovna;Wednesday;90
+Lab;442;CPADevelopment;Kozel Egor Vladimirovich;Wednesday;90
+Seminar;542;Linear Algebra;Shevcov Evgeniy Olegovich;Friday;90
