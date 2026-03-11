@@ -10,7 +10,7 @@ class Lesson{
     static int next_id_;
 
     protected:
-        const int id_;
+        int id_;
         int auditory_number_;
         std::string subject_name_;
         std::string teacher_name_;
@@ -21,8 +21,30 @@ class Lesson{
         Lesson(int aud_n, std::string subj, std::string teacher, std::string day, int duration): 
             id_(next_id_++), auditory_number_(aud_n), subject_name_(subj), teacher_name_(teacher), day_(day), duration_(duration){}
         virtual ~Lesson(){};
-
+        Lesson(Lesson&& rhs): id_(std::move(rhs.id_)), auditory_number_(std::move(rhs.auditory_number_)), subject_name_(std::move(rhs.subject_name_)), 
+            teacher_name_(std::move(rhs.teacher_name_)), day_(std::move(rhs.day_)), duration_(std::move(rhs.duration_)) {}
+        Lesson& operator=(const Lesson& rhs){
+            id_ = rhs.id_;
+            auditory_number_ = rhs.auditory_number_;
+            subject_name_ = rhs.subject_name_;
+            teacher_name_ = rhs.teacher_name_;
+            day_ = rhs.day_;
+            duration_ = rhs.duration_;
+            return *this;
+        }
+        Lesson& operator=(Lesson&& rhs) noexcept{
+            if (this != &rhs){
+                id_ = rhs.id_;
+                auditory_number_ = rhs.auditory_number_;
+                subject_name_ = std::move(rhs.subject_name_);
+                teacher_name_ = std::move(rhs.teacher_name_);
+                day_ = rhs.day_;
+                duration_ = std::move(rhs.duration_);
+            }
+            return *this;
+        }
         int GetID() const{return id_;}
+        int SetID(int id){id_ = id;}
         int GetAuditoryNumber() const{return auditory_number_;}
         std::string GetSubjectName() const {return subject_name_;}
         std::string GetTeacherName()const {return teacher_name_;}
@@ -125,7 +147,7 @@ void HandleQueries(const std::vector<Lesson*>& lessons){
     std::cout << "4: Overall duration of each type of lessons\n";
     std::cout << "5: List of subjects carrying out at a particular day\n";
     // std::cout << "0: Close the menu (program will be stopped)\n";
-    std::cout << "Write down option (number from 0 to 5): ";
+    std::cout << "Write down option (number from 1 to 5): ";
     std::string user_option_string;
     std::cin >> user_option_string;
     int option;
@@ -206,12 +228,16 @@ void HandleQueries(const std::vector<Lesson*>& lessons){
 }
 
 int main(){
+    std::vector<Lesson*> lessons;
     try{
-        std::vector<Lesson*> lessons = ReadLessonsFromFileToVector("input.txt");
+        lessons = ReadLessonsFromFileToVector("input.txt");
         HandleQueries(lessons);
     }
     catch(const std::exception& e){
         std::cout << e.what() << std::endl;
     }
+    for (auto* les: lessons){
+            delete les;
+        }
     return 0;
 }
